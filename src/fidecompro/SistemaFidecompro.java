@@ -51,24 +51,36 @@ public class SistemaFidecompro {
     }
 
     public static void registrarCliente(Cliente cliente)
-            throws DatoInvalidoException {
+        throws DatoInvalidoException {
 
-        if (cliente.getNombre().trim().isEmpty()) {
+    if (cliente.getNombre().trim().isEmpty()) {
 
-            throw new DatoInvalidoException(
-                    "El nombre del cliente no puede estar vacio."
-            );
-        }
-
-        if (cliente.getIdentificacion().trim().isEmpty()) {
-
-            throw new DatoInvalidoException(
-                    "La identificacion no puede estar vacia."
-            );
-        }
-
-        clientes.add(cliente);
+        throw new DatoInvalidoException(
+                "El nombre del cliente no puede estar vacio."
+        );
     }
+
+    if (cliente.getIdentificacion().trim().isEmpty()) {
+
+        throw new DatoInvalidoException(
+                "La identificacion no puede estar vacia."
+        );
+    }
+
+    for (Cliente existente : clientes) {
+
+        if (existente.getIdentificacion()
+                .equalsIgnoreCase(
+                        cliente.getIdentificacion())) {
+
+            throw new DatoInvalidoException(
+                    "Ya existe un cliente con esa identificacion."
+            );
+        }
+    }
+
+    clientes.add(cliente);
+}
 
     public static void registrarProducto(Producto producto)
             throws DatoInvalidoException {
